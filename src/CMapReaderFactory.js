@@ -8,10 +8,11 @@ export default function() {
 
 		return import('./buffer-loader!pdfjs-dist/cmaps/'+query.name+'.bcmap' /* webpackChunkName: "noprefetch-[request]" */)
 		.then(function(bcmap) {
-			delete require.cache[require.resolve('./buffer-loader!pdfjs-dist/cmaps/'+query.name+'.bcmap')];
+			delete require.cache;
 			return {
 				cMapData: bcmap.default,
 				compressionType: CMapCompressionType.BINARY,
+				cMapPacked: true,
 			};
 		});
 	}
